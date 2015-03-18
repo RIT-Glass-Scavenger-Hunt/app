@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Main_Window</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="Homeinfo">Target-6/10</string>
+</resources>
