@@ -17,6 +17,8 @@ import android.widget.TextView;
 public class MainActivity extends ActionBarActivity {
 
     static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
+    static final int QR_SCAN_RESULT = 0;
+    static final int NEXT_TARGET_RESULT = 1;
 
     public String[] location_clues;
     public String[] location_QR;
@@ -54,7 +56,7 @@ public class MainActivity extends ActionBarActivity {
         try {
             Intent intent = new Intent(ACTION_SCAN);
             intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-            startActivityForResult(intent, 0);
+            startActivityForResult(intent, QR_SCAN_RESULT);
         } catch (ActivityNotFoundException anfe) {
             showDialog(MainActivity.this, "No Scanner Found", "Download a scanner code activity?", "Yes", "No").show();
         }
@@ -65,22 +67,20 @@ public class MainActivity extends ActionBarActivity {
         clue.setText(location_clues[target_id]);
     }
 
-    public void showNextClue(View v) {
+    private void showNextClue() {
+        TextView target_label = (TextView) findViewById(R.id.current_target);
+        TextView clue = (TextView) findViewById(R.id.clue_text);
+
         if (target_id < 2) {
-            TextView clue = (TextView) findViewById(R.id.clue_text);
-            TextView feedback = (TextView) findViewById(R.id.feedback);
             target_id++;
-
             clue.setText(location_clues[target_id]);
-            feedback.setText("");
 
-            TextView target_label = (TextView) findViewById(R.id.current_target);
             String target_string = String.valueOf(target_id + 1);
             target_label.setText("Target " + target_string + "/10:");
         }
         else {
-            TextView target_label = (TextView) findViewById(R.id.current_target);
             target_label.setText("Done!");
+            clue.setText("No more clues!");
         }
 
     }
@@ -108,18 +108,30 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if (requestCode == 0) {
+        if (requestCode == QR_SCAN_RESULT) {
             if (resultCode == RESULT_OK) {
-                String contents = intent.getStringExtra("SCAN_RESULT");
-                String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
 
-                TextView feedback = (TextView)findViewById(R.id.feedback);
+                String contents = intent.getStringExtra("SCAN_RESULT");
+                int answer = 0;
+
+                /*String feedback_text = "Sorry, incorrect! Try a different location!";
+                String button_text = "Back to Clue";*/
 
                 if (contents.equals(location_QR[target_id])) {
-                    feedback.setText("Correct!");
+                    answer = 1;
                 }
-                else {
-                    feedback.setText("Sorry, incorrect! Try a different location!");
+
+                Intent intent2 = new Intent(getApplicationContext(), QRFeedback.class);
+                intent2.putExtra("answer", answer);
+                startActivityForResult(intent2, NEXT_TARGET_RESULT);
+            }
+        }
+        else if (requestCode == NEXT_TARGET_RESULT) {
+            if (resultCode == RESULT_OK) {
+                int answer = intent.getIntExtra("answer", 0);
+
+                if (answer == 1) {
+                    showNextClue();
                 }
             }
         }

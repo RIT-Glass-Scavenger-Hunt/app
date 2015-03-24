@@ -137,7 +137,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignTop="@+id/timer" />
 
-        <TextView
+        <!--<TextView
             android:id="@+id/feedback"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -160,7 +160,7 @@
             android:layout_below="@+id/timer"
             android:layout_alignRight="@+id/clue_text"
             android:layout_alignEnd="@+id/clue_text">
-        </Button>
+        </Button>-->
 
     </RelativeLayout>
 </RelativeLayout>
