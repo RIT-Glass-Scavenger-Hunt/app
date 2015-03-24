@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/C:/Users/ayung/AndroidStudioProjects/QRCodeApp/app/src/main/res/values/dimens.xml -->
+    <eat-comment/>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- From: file:/C:/Users/ayung/AndroidStudioProjects/QRCodeApp/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="action_settings">Settings</string>
+    <string name="app_name">QR Demo</string>
+    <string name="clue_text">Find Location #1</string>
+    <string name="correct_location">Correct!</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="location1_clue">Where is Location #1?</string>
+    <string name="location2_clue">Where is Location #2?</string>
+    <string name="location3_clue">Where is Location #3?</string>
+    <string name="next_target_button">Next Target</string>
+    <string name="scan_button">Scan QR</string>
+    <string name="wrong_location">Sorry, incorrect! Try a different location!</string>
+</resources>
